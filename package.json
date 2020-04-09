@@ -1,0 +1,42 @@
+{
+  "name": "command-bus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "bin/**"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "lint": "npm run lint:format && npm run lint:style",
+    "lint:fix": "npm run lint:format:fix && npm run lint:style:fix",
+    "lint:format": "prettier --check '{src,test}/**/*.ts'",
+    "lint:format:fix": "prettier --write '{src,test}/**/*.ts'",
+    "lint:style": "tslint --project .",
+    "lint:style:fix": "tslint --project . --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.1",
+    "@types/sinon": "^9.0.0",
+    "@types/sinon-chai": "^3.2.4",
+    "@typescript-eslint/parser": "^2.27.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^7.1.1",
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.4",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
+    "sinon-chai-calls-assertion": "^2.0.0",
+    "source-map-support": "^0.5.16",
+    "ts-node": "^8.8.2",
+    "tslint": "^6.1.1",
+    "tslint-config-airbnb-base": "^0.3.0",
+    "typescript": "^3.8.3"
+  }
+}
