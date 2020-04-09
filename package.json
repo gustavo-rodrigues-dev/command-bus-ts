@@ -1,11 +1,17 @@
 {
-  "name": "command-bus",
+  "name": "command-bus-ts-decorator",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This project provide a simple and decoupled solution from a command handle structure, where you can use with decorators.",
+  "repository": "https://github.com/gustavobeavis/command-bus-ts-decorator",
+  "homepage": "https://github.com/gustavobeavis/command-bus-ts-decorator",
+  "badges": [],
+  "main": "./bin/index.js",
   "files": [
     "bin/**"
   ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "scripts": {
     "test": "npm run test:e2e",
     "test:e2e": "nyc mocha --opts ./test/e2e/.mocha.opts",
@@ -18,8 +24,8 @@
     "lint:style": "tslint --project .",
     "lint:style:fix": "tslint --project . --fix"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Gustavo S. Rodrigues <gustavo.beavis@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/chai-as-promised": "^7.1.2",

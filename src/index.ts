@@ -1,6 +1,6 @@
 import ContextManager from './context/context-manager';
 import { CommandContext } from './context';
-
+export { Dispatcher } from './dispatch/dispatcher';
 export function handleCommand(
   namespace: string,
   methodCall: string = 'execute',

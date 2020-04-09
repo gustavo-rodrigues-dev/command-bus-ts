@@ -1,10 +1,8 @@
 import { before } from 'mocha';
-import { handleCommand } from '../../src/index';
+import { handleCommand, Dispatcher } from '../../src/index';
 import { DispatchCommand } from '../../src/dispatch';
-import { Dispatcher } from '../../src/dispatch/dispatcher';
 import { expect } from 'chai';
 import ContextManager from '../../src/context/context-manager';
-import { CommandContext } from '../../src/context';
 
 describe('handleCommand', () => {
   let dispacher: DispatchCommand;
