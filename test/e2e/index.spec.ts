@@ -31,7 +31,7 @@ describe('handleCommand', () => {
       }
     }
 
-    const x = await dispacher.dispatch('foo', 'bar');
+    const x = await dispacher.dispatch('X', 'bar');
     expect(x).to.be.equal('bar');
   });
 
