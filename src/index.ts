@@ -3,7 +3,7 @@ import { CommandContext } from './context';
 export { Dispatcher } from './dispatch/dispatcher';
 export function handleCommand(
   namespace: string,
-  methodCall: string = 'execute',
+  methodCall: string = 'execute'
 ) {
   return function (target: any) {
     const instance = ContextManager.getInstance();

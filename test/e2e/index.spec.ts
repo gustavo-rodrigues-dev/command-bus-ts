@@ -23,7 +23,7 @@ describe('handleCommand', () => {
     expect(x).to.be.equal('bar');
   });
 
-  it('Shoud return result of executable Foo.exexute before declare command dispatch handle execute', async () => {
+  it('Shoud return result of executable Foo.excute before declare command dispatch handle execute', async () => {
     @handleCommand('X')
     class Foo {
       public execute(str: string) {
@@ -38,8 +38,7 @@ describe('handleCommand', () => {
   it('Shoud return error on dont define handle method', async () => {
     try {
       @handleCommand('bar', 'execute')
-      class X {
-      }
+      class X {}
     } catch (e) {
       expect(e.message).to.be.equal('Method Call of handle dont exists');
     }
