@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "This project provide a simple and decoupled solution from a command handle structure, where you can use with decorators.",
   "repository": "https://github.com/gustavobeavis/command-bus-ts-decorator",
+  "keywords": [
+    "typescript",
+    "commandbus",
+    "decorator"
+  ],
   "homepage": "https://github.com/gustavobeavis/command-bus-ts-decorator",
   "badges": [],
   "main": "./bin/index.js",
