@@ -7,6 +7,9 @@
     "bin/**"
   ],
   "scripts": {
+    "test": "npm run test:e2e",
+    "test:e2e": "nyc mocha --opts ./test/e2e/.mocha.opts",
+    "test:e2e:debug": "mocha --opts ./test/e2e/.mocha.opts --inspect-brk",
     "build": "tsc",
     "lint": "npm run lint:format && npm run lint:style",
     "lint:fix": "npm run lint:format:fix && npm run lint:style:fix",
