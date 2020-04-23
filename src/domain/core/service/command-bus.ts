@@ -8,16 +8,16 @@ import { MiddlewareBus } from './middleware-bus';
 import { PublishBus } from './publish-bus';
 
 export class CommandBus implements Dispatch {
-  private readonly context: Map< string | Symbol, Context>;
+  private readonly context: Map<string | Symbol, Context>;
   private readonly globalMiddlewares: Middleware<any>[];
-  constructor(){
+  constructor() {
     this.context = new Map();
     this.globalMiddlewares = [];
   }
 
   private getCommand(command: Command): Context {
     const commandContext = this.context.get(command.commandName);
-    if(!commandContext){
+    if (!commandContext) {
       throw new Error('Context not found');
     }
 
@@ -25,7 +25,7 @@ export class CommandBus implements Dispatch {
   }
 
   private updateContext(context: Context): this {
-    if(!this.context.has(context.command.commandName)){
+    if (!this.context.has(context.command.commandName)) {
       throw new Error('Context not found');
     }
     this.context.set(context.command.commandName, context);
@@ -45,7 +45,7 @@ export class CommandBus implements Dispatch {
   }
 
   public use(middleware: Middleware<any>, command?: Command | undefined): this {
-    if(!command){
+    if (!command) {
       this.globalMiddlewares.push(middleware);
 
       return this;
@@ -72,13 +72,20 @@ export class CommandBus implements Dispatch {
 
   public async execute<T>(command: Command): Promise<T> {
     const commandContext = this.getCommand(command);
-    const middlewares = [...this.globalMiddlewares, ...commandContext.middlewares];
+    const middlewares = [
+      ...this.globalMiddlewares,
+      ...commandContext.middlewares,
+    ];
     await MiddlewareBus.invoke(commandContext, middlewares);
     try {
-      const result = await commandContext.handle.execute(command) as T;
-      commandContext.listners.notify({ req: command, res: result, error: undefined });
+      const result = (await commandContext.handle.execute(command)) as T;
+      commandContext.listners.notify({
+        req: command,
+        res: result,
+        error: undefined,
+      });
       return result;
-    } catch(error){
+    } catch (error) {
       commandContext.listners.notify({ req: command, res: undefined, error });
       throw error;
     }

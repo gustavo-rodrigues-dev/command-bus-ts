@@ -3,7 +3,7 @@ import { Observer } from '../../observer';
 
 export class PublishBus {
   private readonly subscribers: Set<Observer>;
-  constructor(){
+  constructor() {
     this.subscribers = new Set();
   }
 
@@ -19,7 +19,7 @@ export class PublishBus {
 
   public notify(message: any): void {
     const errors = [];
-    for(const subscriber of this.subscribers) {
+    for (const subscriber of this.subscribers) {
       try {
         subscriber.update(message);
       } catch (error) {
@@ -27,7 +27,7 @@ export class PublishBus {
       }
     }
 
-    if(errors.length){
+    if (errors.length) {
       throw new MultiError(errors);
     }
   }
