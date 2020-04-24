@@ -1,21 +1,7 @@
-import ContextManager from './context/context-manager';
-import { CommandContext } from './context';
-export { Dispatcher } from './dispatch/dispatcher';
-export function handleCommand(
-  namespace: string,
-  methodCall: string = 'execute',
-) {
-  return function (target: any) {
-    const instance = ContextManager.getInstance();
-    const call = target.prototype[methodCall];
-    if (!call) {
-      throw new Error('Method Call of handle dont exists');
-    }
-    const command: CommandContext = {
-      namespace,
-      handle: call,
-    };
+export { Command } from './domain/command';
+export { Handle } from './domain/handle';
+export { Observer } from './domain/observer';
+export { Publisher } from './domain/publisher';
+export { Dispatch } from './domain/command-bus/index';
+export { CommandBus } from './domain/command-bus/service/command-bus';
 
-    instance.set(command);
-  };
-}
