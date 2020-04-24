@@ -1,14 +1,13 @@
 {
-  "name": "command-bus-ts-decorator",
+  "name": "command-bus-ts",
   "version": "1.0.0",
   "description": "This project provide a simple and decoupled solution from a command handle structure, where you can use with decorators.",
-  "repository": "https://github.com/gustavobeavis/command-bus-ts-decorator",
+  "repository": "https://github.com/gustavobeavis/command-bus-ts",
   "keywords": [
     "typescript",
-    "commandbus",
-    "decorator"
+    "commandbus"
   ],
-  "homepage": "https://github.com/gustavobeavis/command-bus-ts-decorator",
+  "homepage": "https://github.com/gustavobeavis/command-bus-ts",
   "badges": [],
   "main": "./bin/index.js",
   "files": [
@@ -18,6 +17,8 @@
     "node": ">=10.13.0"
   },
   "scripts": {
+    "beforedoc": "rm -rf ./doc",
+    "doc": "typedoc --tsconfig",
     "test": "npm run test:e2e",
     "test:e2e": "nyc mocha --opts ./test/e2e/.mocha.opts",
     "test:e2e:debug": "mocha --opts ./test/e2e/.mocha.opts --inspect-brk",

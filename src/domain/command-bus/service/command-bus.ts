@@ -4,7 +4,7 @@ import { Handle } from '../../handle';
 import { Observer } from '../../observer';
 import { Middleware } from '../../middleware';
 import { Context } from '../model/context';
-import { MiddlewareStorm } from '../../middleware/service/middleware-bus';
+import { MiddlewareStorm } from '../../middleware/service/middleware-storm';
 import { DefaultPublisher } from '../../publisher/service/default-publisher';
 
 /**

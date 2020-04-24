@@ -1,7 +1,7 @@
-import { Command } from '../../command';
-import { Handle } from '../../handle';
-import { Middleware } from '../../middleware';
-import { Observer } from '../../observer';
+import { Command } from '../command';
+import { Handle } from '../handle';
+import { Middleware } from '../middleware';
+import { Observer } from '../observer';
 /**
  * Interface of Disptcher
  *
