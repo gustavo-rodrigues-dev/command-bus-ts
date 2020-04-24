@@ -12,6 +12,9 @@
     "rootDir": "./src/",
     "outDir": "./bin/",
   },
+  "typedocOptions": {
+    "mode": "file",
+    "out": "docs"
+  },
   "include": ["src/**/*.ts"],
 }
-  
