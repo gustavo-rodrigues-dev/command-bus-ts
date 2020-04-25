@@ -1,0 +1,6 @@
+--require ts-node/register
+--require source-map-support/register
+--full-trace
+--recursive
+--bail
+--bail ./test/unit/setup.spec.ts  ./test/unit/**/*.spec.ts\
