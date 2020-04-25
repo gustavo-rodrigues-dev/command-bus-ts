@@ -1,12 +1,13 @@
 import { MultiError } from 'VError';
 import { Observer } from '../../observer';
+import { Publisher } from '..';
 
 /**
  * Class are responsible to publish message to subscribers where you register
  * @export
  * @class DefaultPublisher
  */
-export class DefaultPublisher {
+export class DefaultPublisher implements Publisher {
   private readonly subscribers: Set<Observer>;
   constructor() {
     this.subscribers = new Set();
