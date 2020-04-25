@@ -1,5 +1,6 @@
-  
+
 "hooks": {
   "pre-commit": "npm run lint:fix",
-  "post-merge": "npm run clear && npm install"
+  "pre-push": "npm run action:verify:security",
+  "post-merge": "npm run action:verify:update-modules"
 }
