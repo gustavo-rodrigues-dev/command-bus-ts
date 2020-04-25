@@ -29,7 +29,11 @@ describe('DefaultPublisher', () => {
     });
     it('Should notfy a subscribe successfully');
     it('Should not return error when notifying if there are no subscribers');
-    it('Should return a single error containing the errors of the subscripts that failed');
-    it('Should return an error if a subscript fails, but this should not affect other subscriptions');
+    it(
+      'Should return a single error containing the errors of the subscripts that failed'
+    );
+    it(
+      'Should return an error if a subscript fails, but this should not affect other subscriptions'
+    );
   });
 });

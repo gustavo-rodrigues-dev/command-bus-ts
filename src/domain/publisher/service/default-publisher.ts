@@ -37,7 +37,6 @@ export class DefaultPublisher implements Publisher {
     return this;
   }
 
-
   /**
    *  This method is responsible to publish message to all subscribers
    *

@@ -7,6 +7,6 @@ export type Next = () => void | Promise<void>;
  * @interface Middleware
  * @template T
  */
-export interface Middleware <T>{
+export interface Middleware<T> {
   (context: T, next: Next): Promise<void> | void;
 }

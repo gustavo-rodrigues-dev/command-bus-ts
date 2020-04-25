@@ -39,7 +39,6 @@ export class CommandBus implements Dispatch {
     return commandContext;
   }
 
-
   /**
    * Class responsible to update context of command
    *
