@@ -1,6 +1,6 @@
 import { before } from 'mocha';
 import { expect } from 'chai';
-import { Dispatch }  from '../../../../../src/domain/command-bus/';
+import { Dispatch } from '../../../../../src/domain/command-bus/';
 import { CommandBus } from '../../../../../src/domain/command-bus/service/command-bus';
 
 describe('CommandBus', () => {
@@ -46,7 +46,9 @@ describe('CommandBus', () => {
       context = new CommandBus();
     });
     it('Should unsubscribe a command successfully');
-    it('Should return error when removing a non-existent subscription on a command');
+    it(
+      'Should return error when removing a non-existent subscription on a command'
+    );
   });
   describe('execute()', () => {
     before(() => {
