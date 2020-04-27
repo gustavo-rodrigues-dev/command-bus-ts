@@ -87,7 +87,6 @@ describe('DefaultPublisher', () => {
       sinon.restore();
     });
 
-
     it('Should notfy a subscribe successfully', () => {
       const message = 'foo';
       const subscriber: Observer = {
@@ -100,14 +99,18 @@ describe('DefaultPublisher', () => {
       context.subscribe(subscriber);
       context.notify(message);
 
-      expect(subscriber.update).to.have.been.calledOnceWithExactly(sinon.match.any);
+      expect(subscriber.update).to.have.been.calledOnceWithExactly(
+        sinon.match.any
+      );
     });
     it('Should not return error when notifying if there are no subscribers', () => {
       const message = 'foo';
       sinon.spy(context, 'notify');
       expect(context.subscribers.size).to.be.equal(0);
       context.notify(message);
-      expect(context.notify).to.have.been.calledOnceWithExactly(sinon.match.any);
+      expect(context.notify).to.have.been.calledOnceWithExactly(
+        sinon.match.any
+      );
     });
     it('Should return a single error containing the errors of the subscriber that failed, but not affect all subscribers', () => {
       const message = 'foo';
@@ -128,12 +131,10 @@ describe('DefaultPublisher', () => {
       sinon.spy(context, 'subscribe');
       sinon.spy(healtlySubscriber, 'update');
       sinon.spy(unhealtlySubscriber, 'update');
-      context
-        .subscribe(unhealtlySubscriber)
-        .subscribe(healtlySubscriber);
+      context.subscribe(unhealtlySubscriber).subscribe(healtlySubscriber);
       try {
         context.notify(message);
-      } catch (error){
+      } catch (error) {
         expect(error).to.be.an.instanceOf(MultiError);
         expect(error.message).to.be.equal('first of 1 error: bar');
         expect(error.errors().length).to.be.equal(1);
@@ -141,8 +142,12 @@ describe('DefaultPublisher', () => {
       }
       expect(context.subscribe).to.have.callCount(2);
       expect(context.notify).to.have.been.calledWithExactly(sinon.match.any);
-      expect(healtlySubscriber.update).to.have.been.calledOnceWithExactly(sinon.match.any);
-      expect(unhealtlySubscriber.update).to.have.been.calledOnceWithExactly(sinon.match.any);
+      expect(healtlySubscriber.update).to.have.been.calledOnceWithExactly(
+        sinon.match.any
+      );
+      expect(unhealtlySubscriber.update).to.have.been.calledOnceWithExactly(
+        sinon.match.any
+      );
     });
   });
 });
