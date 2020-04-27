@@ -1,0 +1,15 @@
+require:
+  - 'ts-node/register'
+  - 'source-map-support/register'
+extension:
+  - 'ts'
+slow: 75
+reporter: 'spec'
+ui: 'bdd'
+timeout: 2000
+recursive: true
+full-trace: true
+spec:
+  - './test/unit/setup.spec.ts'
+  - './test/unit/**/*.spec.ts'
+
