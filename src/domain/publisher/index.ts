@@ -7,6 +7,7 @@ import { Observer } from '../observer';
  * @interface Publisher
  */
 export interface Publisher {
+  readonly subscribers: Set<Observer>;
   /**
    * This method is responsible to register a subscriber
    *

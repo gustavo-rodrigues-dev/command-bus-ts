@@ -8,7 +8,7 @@ import { Publisher } from '..';
  * @class DefaultPublisher
  */
 export class DefaultPublisher implements Publisher {
-  private readonly subscribers: Set<Observer>;
+  public readonly subscribers: Set<Observer>;
   constructor() {
     this.subscribers = new Set();
   }
@@ -33,6 +33,9 @@ export class DefaultPublisher implements Publisher {
    * @memberof DefaultPublisher
    */
   public unsubscribe(observer: Observer): this {
+    if (!this.subscribers.has(observer)) {
+      throw new Error('Subscriber do not exists to unsubscribe');
+    }
     this.subscribers.delete(observer);
     return this;
   }
