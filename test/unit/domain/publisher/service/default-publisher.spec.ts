@@ -132,13 +132,11 @@ describe('DefaultPublisher', () => {
       sinon.spy(healtlySubscriber, 'update');
       sinon.spy(unhealtlySubscriber, 'update');
       context.subscribe(unhealtlySubscriber).subscribe(healtlySubscriber);
+      let err;
       try {
         context.notify(message);
       } catch (error) {
-        expect(error).to.be.an.instanceOf(MultiError);
-        expect(error.message).to.be.equal('first of 1 error: bar');
-        expect(error.errors().length).to.be.equal(1);
-        expect(error.errors()[0].message).to.be.equal('bar');
+        err = error;
       }
       expect(context.subscribe).to.have.callCount(2);
       expect(context.notify).to.have.been.calledWithExactly(sinon.match.any);
@@ -148,6 +146,10 @@ describe('DefaultPublisher', () => {
       expect(unhealtlySubscriber.update).to.have.been.calledOnceWithExactly(
         sinon.match.any
       );
+      expect(err).to.be.an.instanceOf(MultiError);
+      expect(err.message).to.be.equal('first of 1 error: bar');
+      expect(err.errors().length).to.be.equal(1);
+      expect(err.errors()[0].message).to.be.equal('bar');
     });
   });
 });
