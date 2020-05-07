@@ -56,12 +56,9 @@ describe('MiddlewareStorm', () => {
           return next();
         });
       let err = undefined;
-      try {
-        await MiddlewareStorm.invoke(message, [
-          middlewareStub1,
-          middlewareStub2,
-        ]);
-      } catch (error) {
+      try{
+        await MiddlewareStorm.invoke(message, [middlewareStub1, middlewareStub2]);
+      } catch(error){
         err = error;
       }
       expect(MiddlewareStorm.invoke).to.have.been.calledOnce;
