@@ -65,7 +65,7 @@ export class CommandBus implements Dispatch {
    * @memberof CommandBus
    */
   public registerCommand(command: Command, handle: Handle): this {
-    if(!command.commandName){
+    if (!command.commandName) {
       throw new Error('Command dont have commandName');
     }
     this.context.set(command.commandName, {

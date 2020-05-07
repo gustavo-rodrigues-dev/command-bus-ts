@@ -21,7 +21,7 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => {},
+        execute: (): any => {},
       };
 
       context.registerCommand(command, handle);
@@ -38,8 +38,8 @@ describe('CommandBus', () => {
       const x = context as any;
       let err;
       try {
-        x.getCommand({commandName: 'bar'}) as Context;
-      } catch(error) {
+        x.getCommand({ commandName: 'bar' }) as Context;
+      } catch (error) {
         err = error;
       }
       expect(err.message).to.be.equal('Context not found');
@@ -54,7 +54,7 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => {},
+        execute: (): any => {},
       };
 
       context.registerCommand(command, handle);
@@ -66,14 +66,20 @@ describe('CommandBus', () => {
       const updatedCommand = (context as any).getCommand(commandFoo.command);
       expect(updatedCommand.command.bar).to.be.equal('bar');
       expect(updatedCommand.handle).to.be.equal(commandFoo.handle);
-      expect(updatedCommand.listners.subscribers.size).to.be.equal(commandFoo.listners.subscribers.size);
-      expect(updatedCommand.middlewares.length).to.be.equal(commandFoo.middlewares.length);
+      expect(updatedCommand.listners.subscribers.size).to.be.equal(
+        commandFoo.listners.subscribers.size
+      );
+      expect(updatedCommand.middlewares.length).to.be.equal(
+        commandFoo.middlewares.length
+      );
     });
     it('Should return error uptade command when comand not found to update', () => {
       let err;
       try {
-        (context as any).updateContext({command: {commandName: 'bar'}}) as Context;
-      } catch(error) {
+        (context as any).updateContext({
+          command: { commandName: 'bar' },
+        }) as Context;
+      } catch (error) {
         err = error;
       }
       expect(err.message).to.be.equal('Context not found');
@@ -95,24 +101,25 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => {},
+        execute: (): any => {},
       };
       context.registerCommand(command, handle);
       expect((context as any).context.set).to.have.been.calledOnce;
-      expect((context as any).context.get(command.commandName).command).to.be.deep.equal(command);
+      expect(
+        (context as any).context.get(command.commandName).command
+      ).to.be.deep.equal(command);
     });
     it('Should return error register a command where dont have commandName', () => {
       sinon.spy((context as any).context, 'set');
-      command = {
-      } as Command;
+      command = {} as Command;
       handle = {
-        execute: ():any => {},
+        execute: (): any => {},
       };
       let err;
 
       try {
         context.registerCommand(command, handle);
-      } catch(error){
+      } catch (error) {
         err = error;
       }
       expect((context as any).context.set).to.have.been.callCount(0);
@@ -128,47 +135,50 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => {},
+        execute: (): any => {},
       };
       context.registerCommand(command, handle);
       sinon.spy((context as any).globalMiddlewares, 'push');
-      sinon.spy((context as any), 'getCommand');
+      sinon.spy(context as any, 'getCommand');
     });
     afterEach(() => {
       sinon.restore();
     });
     it('Should register a global Middleware', () => {
-     function middleware(context: any, next:Next){
+      function middleware(context: any, next: Next) {
         return next();
-      };
+      }
       context.use(middleware);
-      expect((context as any).globalMiddlewares.push).to.have.been.calledOnceWith(
-        middleware
-      );
+      expect(
+        (context as any).globalMiddlewares.push
+      ).to.have.been.calledOnceWith(middleware);
       expect((context as any).globalMiddlewares).to.have.members([middleware]);
     });
     it('Should register a command Middleware', () => {
-      sinon.spy((context as any).context.get(command.commandName).middlewares, 'push');
-      function middleware(context: any, next:Next){
+      sinon.spy(
+        (context as any).context.get(command.commandName).middlewares,
+        'push'
+      );
+      function middleware(context: any, next: Next) {
         return next();
-      };
+      }
       context.use(middleware, command);
-      expect((context as any).getCommand).to.have.been.calledOnceWith(
-        command,
-      );
-      expect((context as any).context.get(command.commandName).middlewares).to.have.members([middleware]);
-      expect((context as any).context.get(command.commandName).middlewares.push).to.have.been.calledOnceWith(
-        middleware
-      );
+      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect(
+        (context as any).context.get(command.commandName).middlewares
+      ).to.have.members([middleware]);
+      expect(
+        (context as any).context.get(command.commandName).middlewares.push
+      ).to.have.been.calledOnceWith(middleware);
     });
     it('Should return error on register a command Middleware where Command is not defined', () => {
       const newCommand = {
         commandName: 'aaa',
       };
       let err;
-      function middleware(context: any, next:Next){
+      function middleware(context: any, next: Next) {
         return next();
-      };
+      }
       try {
         context.use(middleware, newCommand);
       } catch (error) {
@@ -176,7 +186,7 @@ describe('CommandBus', () => {
       }
 
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand,
+        newCommand
       );
       expect(err.message).to.be.equal('Context not found');
     });
@@ -190,11 +200,16 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => { return 'bar'; },
+        execute: (): any => {
+          return 'bar';
+        },
       };
       context.registerCommand(command, handle);
-      sinon.spy((context as any), 'getCommand');
-      sinon.spy((context as any).context.get(command.commandName).listners, 'subscribe');
+      sinon.spy(context as any, 'getCommand');
+      sinon.spy(
+        (context as any).context.get(command.commandName).listners,
+        'subscribe'
+      );
     });
     afterEach(() => {
       sinon.restore();
@@ -207,13 +222,15 @@ describe('CommandBus', () => {
         },
       };
       context.subscribeCommand(command, subscriber);
-      expect((context as any).context.get(command.commandName).listners.subscribers.has(subscriber)).to.be.true;
-      expect((context as any).getCommand).to.have.been.calledOnceWith(
-        command,
-      );
-      expect((context as any).context.get(command.commandName).listners.subscribe).to.have.been.calledOnceWith(
-        subscriber,
-      );
+      expect(
+        (context as any).context
+          .get(command.commandName)
+          .listners.subscribers.has(subscriber)
+      ).to.be.true;
+      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect(
+        (context as any).context.get(command.commandName).listners.subscribe
+      ).to.have.been.calledOnceWith(subscriber);
     });
     it('Should not be two identical subscriptions to a command');
   });
@@ -227,7 +244,9 @@ describe('CommandBus', () => {
         commandName: 'foo',
       };
       handle = {
-        execute: ():any => { return 'bar'; },
+        execute: (): any => {
+          return 'bar';
+        },
       };
       context.registerCommand(command, handle);
       subscriber = {
@@ -235,23 +254,28 @@ describe('CommandBus', () => {
           return;
         },
       };
-      context.subscribeCommand(command,subscriber)
-      sinon.spy((context as any), 'unsubscribeCommand');
-      sinon.spy((context as any), 'getCommand');
-      sinon.spy((context as any).context.get(command.commandName).listners, 'unsubscribe');
+      context.subscribeCommand(command, subscriber);
+      sinon.spy(context as any, 'unsubscribeCommand');
+      sinon.spy(context as any, 'getCommand');
+      sinon.spy(
+        (context as any).context.get(command.commandName).listners,
+        'unsubscribe'
+      );
     });
     afterEach(() => {
       sinon.restore();
     });
     it('Should unsubscribe a command successfully', () => {
       context.unsubscribeCommand(command, subscriber);
-      expect((context as any).context.get(command.commandName).listners.subscribers.has(subscriber)).to.be.false;
-      expect((context as any).getCommand).to.have.been.calledOnceWith(
-        command,
-      );
-      expect((context as any).context.get(command.commandName).listners.unsubscribe).to.have.been.calledOnceWith(
-        subscriber,
-      );
+      expect(
+        (context as any).context
+          .get(command.commandName)
+          .listners.subscribers.has(subscriber)
+      ).to.be.false;
+      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect(
+        (context as any).context.get(command.commandName).listners.unsubscribe
+      ).to.have.been.calledOnceWith(subscriber);
     });
     it(
       'Should return error when removing a non-existent subscription on a command'
@@ -265,7 +289,9 @@ describe('CommandBus', () => {
     it('Should return error on execute a command where command not found');
     it('Should return error on execute a command where handle fail');
     it('Should execute a command successfully where has healtly middleware');
-    it('Should return error on execute a command where has unhealtly middleware');
+    it(
+      'Should return error on execute a command where has unhealtly middleware'
+    );
     it('Should execute a command successfully where has healtly subscriber');
     it('Should execute a command successfully where has unhealtly subscriber');
   });
