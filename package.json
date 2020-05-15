@@ -56,7 +56,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "@types/verror": "1.10.3",
+    "@types/verror": "1.10.4",
     "verror": "1.10.0"
   }
 }
