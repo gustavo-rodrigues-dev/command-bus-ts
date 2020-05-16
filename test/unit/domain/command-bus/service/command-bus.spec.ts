@@ -277,17 +277,120 @@ describe('CommandBus', () => {
         (context as any).context.get(command.commandName).listners.unsubscribe
       ).to.have.been.calledOnceWith(subscriber);
     });
-    it(
-      'Should return error when removing a non-existent subscription on a command'
-    );
+    it('Should return error when removing a non-existent subscription on a command', () => {
+      const newCommand = {
+        commandName: 'newCommand',
+      };
+      let err;
+      try {
+        context.unsubscribeCommand(newCommand, subscriber);
+      } catch(error) {
+        err = error;
+      }
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        newCommand,
+      );
+      expect(err.message).to.be.equal('Context not found');
+      });
   });
   describe('execute()', () => {
+    let command: Command;
+    let handle: Handle;
+    let subscriber: Observer;
+    let middleware: Middleware<any>;
     beforeEach(() => {
       context = new CommandBus();
+      command = {
+        commandName: 'foo',
+      };
+      handle = {
+        execute: (): any => {
+          return 'bar';
+        },
+      };
+      middleware = sinon
+      .stub()
+      .callsFake((context: any, next: Next) => {
+        return next();
+      });
+      subscriber = {
+        update: (res: any) => {
+          return;
+        },
+      };
+      context
+        .registerCommand(command, handle)
+        .use(middleware, command)
+        .subscribeCommand(command, subscriber);
+      sinon.spy(handle, 'execute');
+      sinon.spy(subscriber, 'update');
+      sinon.spy(context, 'registerCommand');
+      sinon.spy(context as any, 'getCommand');
+      sinon.spy((context as any).context.get(command.commandName).listners, 'notify');
     });
-    it('Should execute a command successfully');
-    it('Should return error on execute a command where command not found');
-    it('Should return error on execute a command where handle fail');
+    afterEach(() => {
+      sinon.restore();
+    });
+    it('Should execute a command successfully', async () => {
+      const result = await context.execute(command);
+      expect(result).to.be.equal('bar');
+      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect(middleware).to.have.been.calledOnce;
+      expect(handle.execute).to.have.been.calledOnceWith(command);
+      expect(subscriber.update).to.have.been.calledOnceWith({
+        req: command,
+        res: 'bar',
+        error: undefined,
+      });
+    });
+    it('Should return error on execute a command where command not found', async () => {
+      const newCommand = {
+        commandName: 'newCommand',
+      };
+      let err;
+      try {
+        await context.execute(newCommand);
+      } catch(error) {
+        err = error;
+      }
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        newCommand,
+      );
+      expect(err.message).to.be.equal('Context not found');
+    });
+    it('Should return error on execute a command where handle fail', async () => {
+      const newCommand = {
+        commandName: 'newCommand',
+      };
+
+      const newHandle: Handle = {
+        execute:
+        sinon
+          .stub()
+          .throws(new Error('Some Error')),
+      };
+
+      context
+        .registerCommand(newCommand, newHandle)
+        .subscribeCommand(newCommand, subscriber)
+        .use(middleware, newCommand);
+
+      let err;
+      try {
+        await context.execute(newCommand);
+      } catch(error) {
+        err = error;
+      }
+      expect((context as any).getCommand).to.have.been.callCount(3);
+      expect(middleware).to.have.been.calledOnce;
+      expect(newHandle.execute).to.have.been.calledOnceWith(newCommand);
+      expect(subscriber.update).to.have.been.calledOnceWith({
+        req: newCommand,
+        res: undefined,
+        error: err,
+      });
+      expect(err.message).to.be.equal('Some Error');
+    });
     it('Should execute a command successfully where has healtly middleware');
     it(
       'Should return error on execute a command where has unhealtly middleware'
