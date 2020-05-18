@@ -1,4 +1,4 @@
-import { MultiError } from 'VError';
+import { MultiError } from 'verror';
 import { Observer } from '../../observer';
 import { Publisher } from '..';
 

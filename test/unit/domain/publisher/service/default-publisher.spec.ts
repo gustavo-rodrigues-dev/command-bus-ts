@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { Publisher } from '../../../../../src/domain/publisher';
 import { DefaultPublisher } from '../../../../../src/domain/publisher/service/default-publisher';
 import { Observer } from '../../../../../src/domain/observer';
-import { MultiError } from 'VError';
+import { MultiError } from 'verror';
 
 describe('DefaultPublisher', () => {
   let context: Publisher;
