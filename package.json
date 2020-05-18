@@ -16,9 +16,9 @@
     "test": "./test/unit",
     "doc": "./docs"
   },
-  "files": [
-    "./bin/**/*"
-  ],
+  "bin": {
+    "**/*.js": "./bin/**/*.js"
+  },
   "engines": {
     "node": ">=10.13.0"
   },
