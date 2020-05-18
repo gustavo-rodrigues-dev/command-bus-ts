@@ -10,9 +10,12 @@
   "homepage": "https://github.com/gustavobeavis/command-bus-ts",
   "badges": [],
   "main": "./bin/index.js",
-  "files": [
-    "bin/**"
-  ],
+  "directories": {
+    "bin": "./bin",
+    "lib": "./src",
+    "test": "./test/unit",
+    "doc": "./docs"
+  },
   "engines": {
     "node": ">=10.13.0"
   },
