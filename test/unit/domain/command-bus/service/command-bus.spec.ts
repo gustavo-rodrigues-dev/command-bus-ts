@@ -232,7 +232,6 @@ describe('CommandBus', () => {
         (context as any).context.get(command.commandName).listners.subscribe
       ).to.have.been.calledOnceWith(subscriber);
     });
-    it('Should not be two identical subscriptions to a command');
   });
   describe('unsubscribeCommand()', () => {
     let command: Command;
@@ -284,14 +283,14 @@ describe('CommandBus', () => {
       let err;
       try {
         context.unsubscribeCommand(newCommand, subscriber);
-      } catch(error) {
+      } catch (error) {
         err = error;
       }
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand,
+        newCommand
       );
       expect(err.message).to.be.equal('Context not found');
-      });
+    });
   });
   describe('execute()', () => {
     let command: Command;
@@ -308,9 +307,7 @@ describe('CommandBus', () => {
           return 'bar';
         },
       };
-      middleware = sinon
-      .stub()
-      .callsFake((context: any, next: Next) => {
+      middleware = sinon.stub().callsFake((context: any, next: Next) => {
         return next();
       });
       subscriber = {
@@ -326,7 +323,10 @@ describe('CommandBus', () => {
       sinon.spy(subscriber, 'update');
       sinon.spy(context, 'registerCommand');
       sinon.spy(context as any, 'getCommand');
-      sinon.spy((context as any).context.get(command.commandName).listners, 'notify');
+      sinon.spy(
+        (context as any).context.get(command.commandName).listners,
+        'notify'
+      );
     });
     afterEach(() => {
       sinon.restore();
@@ -350,11 +350,11 @@ describe('CommandBus', () => {
       let err;
       try {
         await context.execute(newCommand);
-      } catch(error) {
+      } catch (error) {
         err = error;
       }
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand,
+        newCommand
       );
       expect(err.message).to.be.equal('Context not found');
     });
@@ -364,10 +364,7 @@ describe('CommandBus', () => {
       };
 
       const newHandle: Handle = {
-        execute:
-        sinon
-          .stub()
-          .throws(new Error('Some Error')),
+        execute: sinon.stub().throws(new Error('Some Error')),
       };
 
       context
@@ -378,7 +375,7 @@ describe('CommandBus', () => {
       let err;
       try {
         await context.execute(newCommand);
-      } catch(error) {
+      } catch (error) {
         err = error;
       }
       expect((context as any).getCommand).to.have.been.callCount(3);
@@ -391,11 +388,77 @@ describe('CommandBus', () => {
       });
       expect(err.message).to.be.equal('Some Error');
     });
-    it('Should execute a command successfully where has healtly middleware');
-    it(
-      'Should return error on execute a command where has unhealtly middleware'
-    );
-    it('Should execute a command successfully where has healtly subscriber');
-    it('Should execute a command successfully where has unhealtly subscriber');
+    it('Should execute a command successfully where has healtly middleware', async () => {
+      const newMiddleware = (self: any, next: Next) => {
+        self.command.foo = 'bar';
+        return next();
+      };
+      const originalCommand = Object.assign({}, command);
+
+      context.use(newMiddleware, command);
+      const result = await context.execute(command);
+      expect(result).to.be.equal('bar');
+      expect(middleware).to.have.been.calledOnce;
+      expect(handle.execute).to.have.been.calledOnceWithExactly({
+        ...originalCommand,
+        foo: 'bar',
+      });
+      expect(subscriber.update).to.have.been.calledOnceWithExactly({
+        req: {
+          ...originalCommand,
+          foo: 'bar',
+        },
+        res: 'bar',
+        error: undefined,
+      });
+    });
+    it('Should return error on execute a command where has unhealtly middleware', async () => {
+      const newMiddleware = (self: any, next: Next) => {
+        throw new Error('Some Error');
+      };
+      context.use(newMiddleware, command);
+
+      let result;
+      let err;
+      try {
+        result = await context.execute(command);
+      } catch (error) {
+        err = error;
+      }
+
+      expect(result).to.be.equal(undefined);
+      expect(middleware).to.have.been.calledOnce;
+      expect(handle.execute).to.have.been.callCount(0);
+      expect(subscriber.update).to.have.been.calledOnceWithExactly({
+        req: command,
+        res: undefined,
+        error: err,
+      });
+    });
+    it('Should execute a command successfully where has unhealtly subscriber', async () => {
+      const errorSubscriber = {
+        update: sinon.stub().throws(new Error('Some Error')),
+      };
+
+      let result;
+      let err;
+      context.subscribeCommand(command, errorSubscriber);
+      try {
+        result = await context.execute(command);
+      } catch (error) {
+        err = error;
+      }
+      expect(result).to.be.equal('bar');
+      expect((context as any).getCommand).to.have.been.calledWithExactly(
+        command
+      );
+      expect(middleware).to.have.been.calledOnce;
+      expect(handle.execute).to.have.been.calledOnceWith(command);
+      expect(subscriber.update).to.have.been.calledOnceWith({
+        req: command,
+        res: 'bar',
+        error: undefined,
+      });
+    });
   });
 });
