@@ -19,7 +19,7 @@ export class MiddlewareStorm {
    */
   public static async invoke<T>(
     context: T,
-    middlewares: Middleware<T>[],
+    middlewares: Middleware<T>[]
   ): Promise<void> {
     if (!middlewares.length) return;
 
