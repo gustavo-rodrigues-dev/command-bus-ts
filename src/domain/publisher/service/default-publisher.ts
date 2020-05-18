@@ -1,13 +1,14 @@
-import { MultiError } from 'VError';
+import { MultiError } from 'verror';
 import { Observer } from '../../observer';
+import { Publisher } from '..';
 
 /**
  * Class are responsible to publish message to subscribers where you register
  * @export
  * @class DefaultPublisher
  */
-export class DefaultPublisher {
-  private readonly subscribers: Set<Observer>;
+export class DefaultPublisher implements Publisher {
+  public readonly subscribers: Set<Observer>;
   constructor() {
     this.subscribers = new Set();
   }
@@ -32,10 +33,12 @@ export class DefaultPublisher {
    * @memberof DefaultPublisher
    */
   public unsubscribe(observer: Observer): this {
+    if (!this.subscribers.has(observer)) {
+      throw new Error('Subscriber do not exists to unsubscribe');
+    }
     this.subscribers.delete(observer);
     return this;
   }
-
 
   /**
    *  This method is responsible to publish message to all subscribers

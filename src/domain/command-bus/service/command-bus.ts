@@ -2,7 +2,7 @@ import { Dispatch } from '..';
 import { Command } from '../../command';
 import { Handle } from '../../handle';
 import { Observer } from '../../observer';
-import { Middleware } from '../../middleware';
+import { Middleware, Next } from '../../middleware';
 import { Context } from '../model/context';
 import { MiddlewareStorm } from '../../middleware/service/middleware-storm';
 import { DefaultPublisher } from '../../publisher/service/default-publisher';
@@ -17,7 +17,7 @@ import { DefaultPublisher } from '../../publisher/service/default-publisher';
 export class CommandBus implements Dispatch {
   private readonly context: Map<string | Symbol, Context>;
   private readonly globalMiddlewares: Middleware<any>[];
-  constructor() {
+  constructor(logger: Console = console) {
     this.context = new Map();
     this.globalMiddlewares = [];
   }
@@ -38,7 +38,6 @@ export class CommandBus implements Dispatch {
 
     return commandContext;
   }
-
 
   /**
    * Class responsible to update context of command
@@ -66,6 +65,9 @@ export class CommandBus implements Dispatch {
    * @memberof CommandBus
    */
   public registerCommand(command: Command, handle: Handle): this {
+    if (!command.commandName) {
+      throw new Error('Command dont have commandName');
+    }
     this.context.set(command.commandName, {
       command,
       handle,
@@ -142,18 +144,31 @@ export class CommandBus implements Dispatch {
       ...this.globalMiddlewares,
       ...commandContext.middlewares,
     ];
-    await MiddlewareStorm.invoke(commandContext, middlewares);
+    let result: any;
+    middlewares.push(async (context, next: Next) => {
+      result = (await context.handle.execute(context.command)) as T;
+
+      try {
+        commandContext.listners.notify({
+          req: command,
+          res: result,
+          error: undefined,
+        });
+        // tslint:disable-next-line: no-empty
+      } catch (error) {}
+      next();
+    });
+
     try {
-      const result = (await commandContext.handle.execute(command)) as T;
-      commandContext.listners.notify({
-        req: command,
-        res: result,
-        error: undefined,
-      });
-      return result;
+      await MiddlewareStorm.invoke(commandContext, middlewares);
     } catch (error) {
-      commandContext.listners.notify({ req: command, res: undefined, error });
+      try {
+        commandContext.listners.notify({ req: command, res: undefined, error });
+        // tslint:disable-next-line: no-empty
+      } catch (err) {}
       throw error;
     }
+
+    return result;
   }
 }
