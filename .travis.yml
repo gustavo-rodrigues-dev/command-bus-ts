@@ -7,6 +7,12 @@ node_js:
   - "12"
   - "13"
   - "14"
+deploy:
+  provider: script
+  script: "cp .npmrc.template $HOME/.npmrc && npm publish"
+  skip_cleanup: true
+  on:
+    tags: true
 before_script:
  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
  - chmod +x ./cc-test-reporter
