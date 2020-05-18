@@ -1,6 +1,6 @@
 {
   "name": "command-bus-ts",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "This project provide a simple and decoupled solution from a command handle structure, where you can use with decorators.",
   "repository": "https://github.com/gustavobeavis/command-bus-ts",
   "keywords": [
