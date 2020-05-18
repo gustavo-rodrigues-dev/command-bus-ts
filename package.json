@@ -1,6 +1,6 @@
 {
   "name": "command-bus-ts",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "This project provide a simple and decoupled solution from a command handle structure, where you can use with decorators.",
   "repository": "https://github.com/gustavobeavis/command-bus-ts",
   "keywords": [
@@ -22,7 +22,6 @@
     "node": ">=10.13.0"
   },
   "scripts": {
-    "prepack": "npm run build",
     "beforedoc": "rm -rf ./doc",
     "doc": "typedoc --tsconfig",
     "test": "npm run test:unit",
