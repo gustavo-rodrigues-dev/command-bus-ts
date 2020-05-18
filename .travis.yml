@@ -9,12 +9,11 @@ node_js:
   - "14"
 deploy:
   provider: script
-  script:
-    - if [[ "$TRAVIS_NODE_VERSION" == 4 ]]; then cp .npmrc.template $HOME/.npmrc && npm publish; fi
+  script: cp .npmrc.template $HOME/.npmrc && npm publish
   cleanup: false
-  keep_history: false
   on:
     tags: true
+    condition: $TRAVIS_NODE_VERSION = 14
 before_script:
  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
  - chmod +x ./cc-test-reporter
