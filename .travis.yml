@@ -8,6 +8,7 @@ node_js:
   - "13"
   - "14"
 deploy:
+  if: $TRAVIS_NODE_VERSION = 14
   provider: script
   script: "cp .npmrc.template $HOME/.npmrc && npm publish"
   skip_cleanup: true
