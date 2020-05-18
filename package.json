@@ -8,7 +8,6 @@
     "commandbus"
   ],
   "homepage": "https://github.com/gustavobeavis/command-bus-ts",
-  "badges": [],
   "main": "./bin/index.js",
   "directories": {
     "bin": "./bin",
@@ -17,12 +16,13 @@
     "doc": "./docs"
   },
   "bin": {
-    "**/*.js": "./bin/**/*.js"
+    "*": "./bin"
   },
   "engines": {
     "node": ">=10.13.0"
   },
   "scripts": {
+    "prepack": "npm run build",
     "beforedoc": "rm -rf ./doc",
     "doc": "typedoc --tsconfig",
     "test": "npm run test:unit",
