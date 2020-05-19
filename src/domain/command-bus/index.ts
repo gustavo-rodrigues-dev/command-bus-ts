@@ -22,7 +22,7 @@ export interface Dispatch {
   /**
    * registerCommand is a Method responsible to register a command and your handle
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Handle} handle
    * @returns {this}
    * @memberof Dispatch
@@ -32,7 +32,7 @@ export interface Dispatch {
    * use is responsible to register a global middleware or a middleware to a especific command
    *
    * @param {Middleware<any>} middleware
-   * @param {Command} [command]
+   * @param {string | Symbol | undefined} commandName
    * @returns {this}
    * @memberof Dispatch
    */
@@ -41,7 +41,7 @@ export interface Dispatch {
    * subscribeCommand is responsible to register a observable
    * to listen all responses of some command
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Observer} observer
    * @returns {this}
    * @memberof Dispatch
@@ -51,7 +51,7 @@ export interface Dispatch {
    * unsubscribeCommand is responsible to unregister a observable
    * to listen all responses of some command
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Observer} observer
    * @returns {this}
    * @memberof Dispatch

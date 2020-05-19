@@ -96,6 +96,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="context.html#command" class="tsd-kind-icon">command</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="context.html#commandname" class="tsd-kind-icon">command<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="context.html#handle" class="tsd-kind-icon">handle</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="context.html#listners" class="tsd-kind-icon">listners</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="context.html#middlewares" class="tsd-kind-icon">middlewares</a></li>
@@ -108,11 +109,21 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="command" class="tsd-anchor"></a>
-					<h3>command</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> command</h3>
 					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <a href="command.html" class="tsd-signature-type">Command</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/model/context.ts#L13">domain/command-bus/model/context.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/model/context.ts#L15">domain/command-bus/model/context.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="commandname" class="tsd-anchor"></a>
+					<h3>command<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">command<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/model/context.ts#L13">domain/command-bus/model/context.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -122,7 +133,7 @@
 					<div class="tsd-signature tsd-kind-icon">handle<span class="tsd-signature-symbol">:</span> <a href="handle.html" class="tsd-signature-type">Handle</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/model/context.ts#L14">domain/command-bus/model/context.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/model/context.ts#L14">domain/command-bus/model/context.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -132,7 +143,7 @@
 					<div class="tsd-signature tsd-kind-icon">listners<span class="tsd-signature-symbol">:</span> <a href="publisher.html" class="tsd-signature-type">Publisher</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/model/context.ts#L16">domain/command-bus/model/context.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/model/context.ts#L17">domain/command-bus/model/context.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -142,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">middlewares<span class="tsd-signature-symbol">:</span> <a href="middleware.html" class="tsd-signature-type">Middleware</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/model/context.ts#L15">domain/command-bus/model/context.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/model/context.ts#L16">domain/command-bus/model/context.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,6 +188,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="context.html#command" class="tsd-kind-icon">command</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="context.html#commandname" class="tsd-kind-icon">command<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="context.html#handle" class="tsd-kind-icon">handle</a>
@@ -219,12 +233,13 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>

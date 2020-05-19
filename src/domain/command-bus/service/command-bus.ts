@@ -26,7 +26,7 @@ export class CommandBus implements Dispatch {
    * Method responssible to get a command context
    *
    * @private
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @returns {Context}
    * @memberof CommandBus
    */
@@ -59,7 +59,7 @@ export class CommandBus implements Dispatch {
   /**
    * Method reposnible to register some command and your handle
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Handle} handle
    * @returns {this}
    * @memberof CommandBus
@@ -70,7 +70,7 @@ export class CommandBus implements Dispatch {
     }
     this.context.set(commandName, {
       command: {
-        commandName: commandName,
+        commandName,
       },
       commandName,
       handle,
@@ -85,7 +85,7 @@ export class CommandBus implements Dispatch {
    * Method use is responsible to register a global middleware or a middleware into some command
    *
    * @param {Middleware<any>} middleware
-   * @param {Command} [command]
+   * @param {string | Symbol} commandName
    * @returns {this}
    * @memberof CommandBus
    * @example CommandBus.use(middleware)
@@ -105,14 +105,14 @@ export class CommandBus implements Dispatch {
   /**
    * Method subscribeCommand is responsible to register a Observable to a command
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Observer} observer
    * @returns {this}
    * @memberof CommandBus
    */
   public subscribeCommand(
     commandName: string | Symbol,
-    observer: Observer
+    observer: Observer,
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.subscribe(observer);
@@ -123,14 +123,14 @@ export class CommandBus implements Dispatch {
   /**
    * Method unsubscribeCommand is responsible to unregister a Observable into a command
    *
-   * @param {Command} command
+   * @param {string | Symbol} commandName
    * @param {Observer} observer
    * @returns {this}
    * @memberof CommandBus
    */
   public unsubscribeCommand(
     commandName: string | Symbol,
-    observer: Observer
+    observer: Observer,
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.unsubscribe(observer);

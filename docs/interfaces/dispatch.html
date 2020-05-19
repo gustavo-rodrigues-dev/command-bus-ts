@@ -123,7 +123,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/index.ts#L21">domain/command-bus/index.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/index.ts#L21">domain/command-bus/index.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -157,13 +157,13 @@
 					<a name="registercommand" class="tsd-anchor"></a>
 					<h3>register<wbr>Command</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">register<wbr>Command<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type">Command</a>, handle<span class="tsd-signature-symbol">: </span><a href="handle.html" class="tsd-signature-type">Handle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Command<span class="tsd-signature-symbol">(</span>commandName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span>, handle<span class="tsd-signature-symbol">: </span><a href="handle.html" class="tsd-signature-type">Handle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/index.ts#L30">domain/command-bus/index.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/index.ts#L30">domain/command-bus/index.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -179,7 +179,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <a href="command.html" class="tsd-signature-type">Command</a></h5>
+									<h5>commandName: <span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span></h5>
 								</li>
 								<li>
 									<h5>handle: <a href="handle.html" class="tsd-signature-type">Handle</a></h5>
@@ -193,13 +193,13 @@
 					<a name="subscribecommand" class="tsd-anchor"></a>
 					<h3>subscribe<wbr>Command</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">subscribe<wbr>Command<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type">Command</a>, observer<span class="tsd-signature-symbol">: </span><a href="observer.html" class="tsd-signature-type">Observer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">subscribe<wbr>Command<span class="tsd-signature-symbol">(</span>commandName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span>, observer<span class="tsd-signature-symbol">: </span><a href="observer.html" class="tsd-signature-type">Observer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/index.ts#L49">domain/command-bus/index.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/index.ts#L49">domain/command-bus/index.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -216,7 +216,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <a href="command.html" class="tsd-signature-type">Command</a></h5>
+									<h5>commandName: <span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span></h5>
 								</li>
 								<li>
 									<h5>observer: <a href="observer.html" class="tsd-signature-type">Observer</a></h5>
@@ -230,13 +230,13 @@
 					<a name="unsubscribecommand" class="tsd-anchor"></a>
 					<h3>unsubscribe<wbr>Command</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">unsubscribe<wbr>Command<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><a href="command.html" class="tsd-signature-type">Command</a>, observer<span class="tsd-signature-symbol">: </span><a href="observer.html" class="tsd-signature-type">Observer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">unsubscribe<wbr>Command<span class="tsd-signature-symbol">(</span>commandName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span>, observer<span class="tsd-signature-symbol">: </span><a href="observer.html" class="tsd-signature-type">Observer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/index.ts#L59">domain/command-bus/index.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/index.ts#L59">domain/command-bus/index.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -253,7 +253,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <a href="command.html" class="tsd-signature-type">Command</a></h5>
+									<h5>commandName: <span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span></h5>
 								</li>
 								<li>
 									<h5>observer: <a href="observer.html" class="tsd-signature-type">Observer</a></h5>
@@ -267,13 +267,13 @@
 					<a name="use" class="tsd-anchor"></a>
 					<h3>use</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">use<span class="tsd-signature-symbol">(</span>middleware<span class="tsd-signature-symbol">: </span><a href="middleware.html" class="tsd-signature-type">Middleware</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, command<span class="tsd-signature-symbol">?: </span><a href="command.html" class="tsd-signature-type">Command</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+						<li class="tsd-signature tsd-kind-icon">use<span class="tsd-signature-symbol">(</span>middleware<span class="tsd-signature-symbol">: </span><a href="middleware.html" class="tsd-signature-type">Middleware</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, commandName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts-decorator/blob/b921467/src/domain/command-bus/index.ts#L39">domain/command-bus/index.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/77604d6/src/domain/command-bus/index.ts#L39">domain/command-bus/index.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -292,7 +292,7 @@
 									<h5>middleware: <a href="middleware.html" class="tsd-signature-type">Middleware</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> command: <a href="command.html" class="tsd-signature-type">Command</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> commandName: <span class="tsd-signature-type">String</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
@@ -375,12 +375,13 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
