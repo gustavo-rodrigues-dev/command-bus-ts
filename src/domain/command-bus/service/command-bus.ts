@@ -170,7 +170,7 @@ export class CommandBus implements Dispatch {
    */
   public subscribeCommand(
     commandName: string | Symbol,
-    observer: Observer,
+    observer: Observer
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.subscribe(observer);
@@ -198,7 +198,7 @@ export class CommandBus implements Dispatch {
    */
   public unsubscribeCommand(
     commandName: string | Symbol,
-    observer: Observer,
+    observer: Observer
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.unsubscribe(observer);
