@@ -3,6 +3,7 @@
  *
  * @export
  * @interface Command
+ * @since 1.0.0
  */
 export interface Command {
   /**
@@ -10,6 +11,7 @@ export interface Command {
    *
    * @type {(string | Symbol)}
    * @memberof Command
+   * @since 1.0.0
    */
   commandName: string | Symbol;
 }

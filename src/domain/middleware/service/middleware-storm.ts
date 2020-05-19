@@ -16,6 +16,7 @@ export class MiddlewareStorm {
    * @param {Middleware<T>[]} middlewares
    * @returns {Promise<void>}
    * @memberof MiddlewareStorm
+   * @since 1.0.0
    */
   public static async invoke<T>(
     context: T,

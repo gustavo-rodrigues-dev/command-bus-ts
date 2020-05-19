@@ -12,6 +12,7 @@ import { DefaultPublisher } from '../../publisher/service/default-publisher';
  *
  * @export
  * @class CommandBus
+ * @since 1.0.0
  * @implements {Dispatch}
  */
 export class CommandBus implements Dispatch {
@@ -28,6 +29,7 @@ export class CommandBus implements Dispatch {
    * @private
    * @param {string | Symbol} commandName
    * @returns {Context}
+   * @since 1.0.0
    * @memberof CommandBus
    */
   private getCommand(commandName: string | Symbol): Context {
@@ -45,6 +47,7 @@ export class CommandBus implements Dispatch {
    * @private
    * @param {Context} context
    * @returns {this}
+   * @since 1.0.0
    * @memberof CommandBus
    */
   private updateContext(context: Context): this {
@@ -62,6 +65,7 @@ export class CommandBus implements Dispatch {
    * @param {string | Symbol} commandName
    * @param {Handle} handle
    * @returns {this}
+   * @since 1.0.0
    * @memberof CommandBus
    */
   public registerCommand(commandName: Symbol | string, handle: Handle): this {
@@ -88,6 +92,7 @@ export class CommandBus implements Dispatch {
    * @param {string | Symbol} commandName
    * @returns {this}
    * @memberof CommandBus
+   * @since 1.0.0
    * @example CommandBus.use(middleware)
    */
   public use(middleware: Middleware<any>, commandName?: string | Symbol): this {
@@ -109,10 +114,11 @@ export class CommandBus implements Dispatch {
    * @param {Observer} observer
    * @returns {this}
    * @memberof CommandBus
+   * @since 1.0.0
    */
   public subscribeCommand(
     commandName: string | Symbol,
-    observer: Observer,
+    observer: Observer
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.subscribe(observer);
@@ -127,10 +133,11 @@ export class CommandBus implements Dispatch {
    * @param {Observer} observer
    * @returns {this}
    * @memberof CommandBus
+   * @since 1.0.0
    */
   public unsubscribeCommand(
     commandName: string | Symbol,
-    observer: Observer,
+    observer: Observer
   ): this {
     const commandContext = this.getCommand(commandName);
     commandContext.listners.unsubscribe(observer);
@@ -146,6 +153,7 @@ export class CommandBus implements Dispatch {
    * @param {Command} command
    * @returns {Promise<T>}
    * @memberof CommandBus
+   * @since 1.0.0
    */
   public async execute<T>(command: Command): Promise<T> {
     const commandContext = this.getCommand(command.commandName);

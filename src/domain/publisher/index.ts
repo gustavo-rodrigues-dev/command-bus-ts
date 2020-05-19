@@ -5,6 +5,7 @@ import { Observer } from '../observer';
  *
  * @export
  * @interface Publisher
+ * @since 1.0.0
  */
 export interface Publisher {
   readonly subscribers: Set<Observer>;
@@ -14,6 +15,7 @@ export interface Publisher {
    * @param {Observer} observer
    * @returns {this}
    * @memberof Publisher
+   * @since 1.0.0
    */
   subscribe(observer: Observer): this;
   /**
@@ -22,6 +24,7 @@ export interface Publisher {
    * @param {Observer} observer
    * @returns {this}
    * @memberof Publisher
+   * @since 1.0.0
    */
   unsubscribe(observer: Observer): this;
   /**
@@ -29,6 +32,7 @@ export interface Publisher {
    *
    * @param {*} message
    * @memberof Publisher
+   * @since 1.0.0
    */
   notify(message: any): void;
 }

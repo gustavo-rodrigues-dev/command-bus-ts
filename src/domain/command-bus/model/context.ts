@@ -8,6 +8,7 @@ import { Publisher } from '../../publisher';
  *
  * @export
  * @interface Context
+ * @since 1.0.0
  */
 export interface Context {
   commandName: string | Symbol;

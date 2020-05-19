@@ -12,6 +12,7 @@ export interface Handle {
    * @param {...any} args
    * @returns {T}
    * @memberof Handle
+   * @since 1.0.0
    */
   execute<T>(...args: any): T;
 }

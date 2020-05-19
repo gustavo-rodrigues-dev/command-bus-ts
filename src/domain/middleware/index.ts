@@ -5,6 +5,7 @@ export type Next = () => void | Promise<void>;
  *
  * @export
  * @interface Middleware
+ * @since 1.0.0
  * @template T
  */
 export interface Middleware<T> {

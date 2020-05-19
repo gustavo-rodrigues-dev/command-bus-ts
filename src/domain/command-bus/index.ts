@@ -55,6 +55,7 @@ export interface Dispatch {
    * @param {Observer} observer
    * @returns {this}
    * @memberof Dispatch
+   * @since 1.0.0
    */
   unsubscribeCommand(commandName: String | Symbol, observer: Observer): this;
 }

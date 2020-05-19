@@ -6,6 +6,7 @@ import { Publisher } from '..';
  * Class are responsible to publish message to subscribers where you register
  * @export
  * @class DefaultPublisher
+ * @since 1.0.0
  */
 export class DefaultPublisher implements Publisher {
   public readonly subscribers: Set<Observer>;
@@ -19,6 +20,7 @@ export class DefaultPublisher implements Publisher {
    * @param {Observer} observer
    * @returns {this}
    * @memberof DefaultPublisher
+   * @since 1.0.0
    */
   public subscribe(observer: Observer): this {
     this.subscribers.add(observer);
@@ -31,6 +33,7 @@ export class DefaultPublisher implements Publisher {
    * @param {Observer} observer
    * @returns {this}
    * @memberof DefaultPublisher
+   * @since 1.0.0
    */
   public unsubscribe(observer: Observer): this {
     if (!this.subscribers.has(observer)) {
@@ -46,6 +49,7 @@ export class DefaultPublisher implements Publisher {
    * @param {*} message
    * @memberof DefaultPublisher
    * @returns {void}
+   * @since 1.0.0
    */
   public notify(message: any): void {
     const errors = [];

@@ -3,6 +3,7 @@
  *
  * @export
  * @interface Observer
+ * @since 1.0.0
  */
 export interface Observer {
   /**
