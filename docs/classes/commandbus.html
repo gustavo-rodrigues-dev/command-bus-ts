@@ -74,11 +74,20 @@
 					<dl class="tsd-comment-tags">
 						<dt>export</dt>
 						<dd></dd>
+						<dt>implements</dt>
+						<dd><p>Dispatch</p>
+						</dd>
 						<dt>since</dt>
 						<dd><p>1.0.0</p>
 						</dd>
 						<dt>implements</dt>
 						<dd><p>{Dispatch}</p>
+						</dd>
+						<dt>example</dt>
+						<dd><p> new CommandBus(console); //returns CommandBus {}</p>
+						</dd>
+						<dt>example</dt>
+						<dd><p> new CommandBus(); //returns CommandBus { }</p>
 						</dd>
 					</dl>
 				</div>
@@ -141,7 +150,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L20">domain/command-bus/service/command-bus.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L25">domain/command-bus/service/command-bus.ts:25</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -163,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Symbol</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L19">domain/command-bus/service/command-bus.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L24">domain/command-bus/service/command-bus.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">global<wbr>Middlewares<span class="tsd-signature-symbol">:</span> <a href="../interfaces/middleware.html" class="tsd-signature-type">Middleware</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L20">domain/command-bus/service/command-bus.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L25">domain/command-bus/service/command-bus.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +200,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/dispatch.html">Dispatch</a>.<a href="../interfaces/dispatch.html#execute">execute</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L158">domain/command-bus/service/command-bus.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L228">domain/command-bus/service/command-bus.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -205,6 +214,17 @@
 									</dd>
 									<dt>since</dt>
 									<dd><p>1.0.0</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.register(&#39;xxx&#39;, { execute: (req) =&gt; { console.log(req.arg)}})
+											await command.execute({ commandName: &#39;xxx&#39;, arg: 1}) // 1;
+										//returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.execute({ commandName: &#39;not found&#39;, arg: 1}, { execute: (req) =&gt; { console.log(req.arg)}});
+										// return Error(&#39;Context not found&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -234,7 +254,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L35">domain/command-bus/service/command-bus.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L52">domain/command-bus/service/command-bus.ts:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,6 +267,20 @@
 									</dd>
 									<dt>memberof</dt>
 									<dd><p>CommandBus</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.getCommand(&#39;ok&#39;);
+											// returns { command: { commandName: &#39;ok&#39;},
+											commandName: &#39;ok&#39;,
+											handle: { execute: [Function] },
+											middlewares: [ [Function]],
+											listners: DefaultPublisher { subscribers: Set { [Object] } },
+										}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+										command.getCommand(&#39;not found&#39;); // return Error(&#39;Context not found&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -270,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L71">domain/command-bus/service/command-bus.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L107">domain/command-bus/service/command-bus.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -283,6 +317,16 @@
 									</dd>
 									<dt>memberof</dt>
 									<dd><p>CommandBus</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.registerCommand(&#39;ok&#39;, { execute: (req) =&gt; {} });
+										//returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.registerCommand(undefined, (req) =&gt; {});
+										//return Error(&#39;Command dont have commandName&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -309,7 +353,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L119">domain/command-bus/service/command-bus.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L171">domain/command-bus/service/command-bus.ts:171</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -322,6 +366,17 @@
 									</dd>
 									<dt>since</dt>
 									<dd><p>1.0.0</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.subscribeCommand(&#39;command&#39;, { update: (subject) =&gt; {}});
+										//returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.use((req, next) =&gt; {});
+											command.subscribeCommand(&#39;not found&#39;, { update: (subject) =&gt; {}});
+										// return Error(&#39;Context not found&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -348,7 +403,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L138">domain/command-bus/service/command-bus.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L199">domain/command-bus/service/command-bus.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -361,6 +416,17 @@
 									</dd>
 									<dt>since</dt>
 									<dd><p>1.0.0</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.unsubscribeCommand(&#39;command&#39;, { update: (subject) =&gt; {}});
+										//returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.use((req, next) =&gt; {});
+											command.unsubscribeCommand(&#39;not found&#39;, { update: (subject) =&gt; {}});
+										// return Error(&#39;Context not found&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -387,7 +453,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L53">domain/command-bus/service/command-bus.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L81">domain/command-bus/service/command-bus.ts:81</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -400,6 +466,19 @@
 									</dd>
 									<dt>memberof</dt>
 									<dd><p>CommandBus</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p> const command = new CommandBus();
+											new command.updateContext({ command: { commandName: &#39;ok&#39;},
+											commandName: &#39;ok&#39;,
+											handle: { execute: [Function] },
+											middlewares: [ [Function]],
+											listners: DefaultPublisher { subscribers: Set { [Object] } },
+										}); //returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+										command.updateContext(&#39;not found&#39;); // return Error(&#39;Context not found&#39;)</p>
 									</dd>
 								</dl>
 							</div>
@@ -423,7 +502,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/7c20e45/src/domain/command-bus/service/command-bus.ts#L98">domain/command-bus/service/command-bus.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/gustavobeavis/command-bus-ts/blob/115c4f6/src/domain/command-bus/service/command-bus.ts#L141">domain/command-bus/service/command-bus.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -438,7 +517,14 @@
 									<dd><p>1.0.0</p>
 									</dd>
 									<dt>example</dt>
-									<dd><p>CommandBus.use(middleware)</p>
+									<dd><p>const command = new CommandBus();
+											command.use((req, next) =&gt; {}, &#39;command&#39;);
+										//returns CommandBus {}</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>const command = new CommandBus();
+											command.use((req, next) =&gt; {});
+										//returns CommandBus {}</p>
 									</dd>
 								</dl>
 							</div>

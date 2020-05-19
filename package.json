@@ -24,6 +24,7 @@
   "scripts": {
     "beforedoc": "rm -rf ./doc",
     "doc": "typedoc --tsconfig",
+    "postdoc": "cp -r ./public ./docs/public",
     "test": "npm run test:unit",
     "test:unit": "nyc mocha --config ./test/unit/.mocharc.yml",
     "test:unit:debug": "mocha --config ./test/unit/.mocharc.yml --inspect-brk",

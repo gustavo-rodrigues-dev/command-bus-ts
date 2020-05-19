@@ -71,14 +71,91 @@
 					<h1>Command-Buss</h1>
 				</a>
 				<p>This project provide a simple and decoupled solution from a command handle structure with suport of publish subscribe.</p>
+				<p><img src="public/images/interfaces.png" alt="class"></p>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<p>WIP</p>
-				<a href="#tests" id="tests" style="color: inherit; text-decoration: none;">
-					<h2>Tests</h2>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h3>Install</h3>
 				</a>
-				<p>WIP</p>
+				<pre><code class="language-shell">npm i command-bus-ts</code></pre>
+				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+					<h3>Basic Usage</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> CommandBus = <span class="hljs-built_in">require</span>(<span class="hljs-string">'command-bus-ts'</span>).CommandBus
+<span class="hljs-keyword">var</span> test = <span class="hljs-keyword">new</span> CommandBus();
+
+test
+    .registerCommand(<span class="hljs-string">'ok'</span>, {
+      <span class="hljs-attr">execute</span>: <span class="hljs-function">(<span class="hljs-params">...req</span>) =&gt;</span> {
+          <span class="hljs-keyword">return</span> <span class="hljs-string">'done'</span>
+      }
+    })
+    .use(<span class="hljs-function">(<span class="hljs-params">req, next</span>) =&gt;</span> {
+      req.x = <span class="hljs-string">'xxx'</span>;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'global Middleware'</span>, req);
+      next();
+    })
+    .use(<span class="hljs-function">(<span class="hljs-params">req, next</span>) =&gt;</span> {
+      req.y = <span class="hljs-string">'yyy'</span>;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'local Middleware'</span>, req);
+      next();
+    }, <span class="hljs-string">'ok'</span>)
+    .use(<span class="hljs-function">(<span class="hljs-params">req, next</span>) =&gt;</span> {
+      req.handle.execute(req);
+      req.handle.execute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">test</span>)</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'changed'</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'done changed'</span>;
+      }
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'local Middleware change handle'</span>, req);
+      next();
+    }, <span class="hljs-string">'ok'</span>)
+    .subscribeCommand(<span class="hljs-string">'ok'</span>, {
+      <span class="hljs-attr">update</span>: <span class="hljs-function">(<span class="hljs-params">subject</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'alert'</span>, subject);
+      }
+    });
+    <span class="hljs-keyword">const</span> res = test.execute(
+    {
+      <span class="hljs-attr">commandName</span>: <span class="hljs-string">'ok'</span>,
+      <span class="hljs-attr">aaa</span>: <span class="hljs-number">1</span>
+    });
+<span class="hljs-comment">/**
+  global Middleware {
+  command: { commandName: 'ok', aaa: 1 },
+  commandName: 'ok',
+  handle: { execute: [Function: execute] },
+  middlewares: [ [Function], [Function] ],
+  listners: DefaultPublisher { subscribers: Set { [Object] } },
+  x: 'xxx'
+}
+local Middleware {
+  command: { commandName: 'ok', aaa: 1 },
+  commandName: 'ok',
+  handle: { execute: [Function: execute] },
+  middlewares: [ [Function], [Function] ],
+  listners: DefaultPublisher { subscribers: Set { [Object] } },
+  x: 'xxx',
+  y: 'yyy'
+}
+local Middleware change handle {
+  command: { commandName: 'ok', aaa: 1 },
+  commandName: 'ok',
+  handle: { execute: [Function] },
+  middlewares: [ [Function], [Function] ],
+  listners: DefaultPublisher { subscribers: Set { [Object] } },
+  x: 'xxx',
+  y: 'yyy'
+}
+changed
+alert {
+  req: { commandName: 'ok', aaa: 1 },
+  res: 'done changed',
+  error: undefined
+}
+response of done changed
+**/</span></code></pre>
+				<p>see more in <a href="https://gustavobeavis.github.io/command-bus-ts/classes/commandbus.html">docs</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
