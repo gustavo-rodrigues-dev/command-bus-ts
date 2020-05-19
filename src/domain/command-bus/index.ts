@@ -27,7 +27,7 @@ export interface Dispatch {
    * @returns {this}
    * @memberof Dispatch
    */
-  registerCommand(command: Command, handle: Handle): this;
+  registerCommand(commandName: String | Symbol, handle: Handle): this;
   /**
    * use is responsible to register a global middleware or a middleware to a especific command
    *
@@ -36,7 +36,7 @@ export interface Dispatch {
    * @returns {this}
    * @memberof Dispatch
    */
-  use(middleware: Middleware<any>, command?: Command): this;
+  use(middleware: Middleware<any>, commandName?: String | Symbol): this;
   /**
    * subscribeCommand is responsible to register a observable
    * to listen all responses of some command
@@ -46,7 +46,7 @@ export interface Dispatch {
    * @returns {this}
    * @memberof Dispatch
    */
-  subscribeCommand(command: Command, observer: Observer): this;
+  subscribeCommand(commandName: String | Symbol, observer: Observer): this;
   /**
    * unsubscribeCommand is responsible to unregister a observable
    * to listen all responses of some command
@@ -56,5 +56,5 @@ export interface Dispatch {
    * @returns {this}
    * @memberof Dispatch
    */
-  unsubscribeCommand(command: Command, observer: Observer): this;
+  unsubscribeCommand(commandName: String | Symbol, observer: Observer): this;
 }

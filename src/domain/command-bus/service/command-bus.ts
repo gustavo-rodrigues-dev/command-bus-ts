@@ -30,8 +30,8 @@ export class CommandBus implements Dispatch {
    * @returns {Context}
    * @memberof CommandBus
    */
-  private getCommand(command: Command): Context {
-    const commandContext = this.context.get(command.commandName);
+  private getCommand(commandName: string | Symbol): Context {
+    const commandContext = this.context.get(commandName);
     if (!commandContext) {
       throw new Error('Context not found');
     }
@@ -48,10 +48,10 @@ export class CommandBus implements Dispatch {
    * @memberof CommandBus
    */
   private updateContext(context: Context): this {
-    if (!this.context.has(context.command.commandName)) {
+    if (!this.context.has(context.commandName)) {
       throw new Error('Context not found');
     }
-    this.context.set(context.command.commandName, context);
+    this.context.set(context.commandName, context);
 
     return this;
   }
@@ -64,12 +64,15 @@ export class CommandBus implements Dispatch {
    * @returns {this}
    * @memberof CommandBus
    */
-  public registerCommand(command: Command, handle: Handle): this {
-    if (!command.commandName) {
+  public registerCommand(commandName: Symbol | string, handle: Handle): this {
+    if (!commandName) {
       throw new Error('Command dont have commandName');
     }
-    this.context.set(command.commandName, {
-      command,
+    this.context.set(commandName, {
+      command: {
+        commandName: commandName,
+      },
+      commandName,
       handle,
       middlewares: [],
       listners: new DefaultPublisher(),
@@ -87,13 +90,13 @@ export class CommandBus implements Dispatch {
    * @memberof CommandBus
    * @example CommandBus.use(middleware)
    */
-  public use(middleware: Middleware<any>, command?: Command): this {
-    if (!command) {
+  public use(middleware: Middleware<any>, commandName?: string | Symbol): this {
+    if (!commandName) {
       this.globalMiddlewares.push(middleware);
 
       return this;
     }
-    const commandContext = this.getCommand(command);
+    const commandContext = this.getCommand(commandName);
     commandContext.middlewares.push(middleware);
 
     return this.updateContext(commandContext);
@@ -107,8 +110,11 @@ export class CommandBus implements Dispatch {
    * @returns {this}
    * @memberof CommandBus
    */
-  public subscribeCommand(command: Command, observer: Observer): this {
-    const commandContext = this.getCommand(command);
+  public subscribeCommand(
+    commandName: string | Symbol,
+    observer: Observer
+  ): this {
+    const commandContext = this.getCommand(commandName);
     commandContext.listners.subscribe(observer);
 
     return this.updateContext(commandContext);
@@ -122,8 +128,11 @@ export class CommandBus implements Dispatch {
    * @returns {this}
    * @memberof CommandBus
    */
-  public unsubscribeCommand(command: Command, observer: Observer): this {
-    const commandContext = this.getCommand(command);
+  public unsubscribeCommand(
+    commandName: string | Symbol,
+    observer: Observer
+  ): this {
+    const commandContext = this.getCommand(commandName);
     commandContext.listners.unsubscribe(observer);
 
     return this.updateContext(commandContext);
@@ -139,25 +148,26 @@ export class CommandBus implements Dispatch {
    * @memberof CommandBus
    */
   public async execute<T>(command: Command): Promise<T> {
-    const commandContext = this.getCommand(command);
+    const commandContext = this.getCommand(command.commandName);
+    let result: any;
+    commandContext.command = command;
     const middlewares = [
       ...this.globalMiddlewares,
       ...commandContext.middlewares,
-    ];
-    let result: any;
-    middlewares.push(async (context, next: Next) => {
-      result = (await context.handle.execute(context.command)) as T;
+      async (context: any, next: Next) => {
+        result = await context.handle.execute(context.command);
 
-      try {
-        commandContext.listners.notify({
-          req: command,
-          res: result,
-          error: undefined,
-        });
-        // tslint:disable-next-line: no-empty
-      } catch (error) {}
-      next();
-    });
+        try {
+          commandContext.listners.notify({
+            req: command,
+            res: result,
+            error: undefined,
+          });
+          // tslint:disable-next-line: no-empty
+        } catch (error) {}
+        next();
+      },
+    ];
 
     try {
       await MiddlewareStorm.invoke(commandContext, middlewares);

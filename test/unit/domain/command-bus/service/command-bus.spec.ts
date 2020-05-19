@@ -24,12 +24,12 @@ describe('CommandBus', () => {
         execute: (): any => {},
       };
 
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
     });
     it('Should get a command', () => {
       const x = context as any;
-      const commandFoo = x.getCommand(command) as Context;
-      expect(commandFoo.command.commandName).to.be.equal(command.commandName);
+      const commandFoo = x.getCommand(command.commandName) as Context;
+      expect(commandFoo.commandName).to.be.equal(command.commandName);
       expect(commandFoo.handle).to.be.equal(handle);
       expect(commandFoo.listners.subscribers.size).to.be.equal(0);
       expect(commandFoo.middlewares.length).to.be.equal(0);
@@ -38,7 +38,7 @@ describe('CommandBus', () => {
       const x = context as any;
       let err;
       try {
-        x.getCommand({ commandName: 'bar' }) as Context;
+        x.getCommand('bar') as Context;
       } catch (error) {
         err = error;
       }
@@ -57,13 +57,15 @@ describe('CommandBus', () => {
         execute: (): any => {},
       };
 
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
     });
     it('Should update a command', () => {
-      const commandFoo = (context as any).getCommand(command);
+      const commandFoo = (context as any).getCommand(command.commandName);
       commandFoo.command.bar = 'bar';
       (context as any).updateContext(commandFoo);
-      const updatedCommand = (context as any).getCommand(commandFoo.command);
+      const updatedCommand = (context as any).getCommand(
+        commandFoo.command.commandName
+      );
       expect(updatedCommand.command.bar).to.be.equal('bar');
       expect(updatedCommand.handle).to.be.equal(commandFoo.handle);
       expect(updatedCommand.listners.subscribers.size).to.be.equal(
@@ -103,11 +105,19 @@ describe('CommandBus', () => {
       handle = {
         execute: (): any => {},
       };
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
       expect((context as any).context.set).to.have.been.calledOnce;
       expect(
-        (context as any).context.get(command.commandName).command
-      ).to.be.deep.equal(command);
+        (context as any).context.get(command.commandName)
+      ).to.be.deep.equal({
+        command,
+        commandName: command.commandName,
+        handle,
+        listners: {
+          subscribers: new Set(),
+        },
+        middlewares: [],
+      });
     });
     it('Should return error register a command where dont have commandName', () => {
       sinon.spy((context as any).context, 'set');
@@ -118,7 +128,7 @@ describe('CommandBus', () => {
       let err;
 
       try {
-        context.registerCommand(command, handle);
+        context.registerCommand(command.commandName, handle);
       } catch (error) {
         err = error;
       }
@@ -137,7 +147,7 @@ describe('CommandBus', () => {
       handle = {
         execute: (): any => {},
       };
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
       sinon.spy((context as any).globalMiddlewares, 'push');
       sinon.spy(context as any, 'getCommand');
     });
@@ -162,8 +172,10 @@ describe('CommandBus', () => {
       function middleware(context: any, next: Next) {
         return next();
       }
-      context.use(middleware, command);
-      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      context.use(middleware, command.commandName);
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        command.commandName
+      );
       expect(
         (context as any).context.get(command.commandName).middlewares
       ).to.have.members([middleware]);
@@ -180,13 +192,13 @@ describe('CommandBus', () => {
         return next();
       }
       try {
-        context.use(middleware, newCommand);
+        context.use(middleware, newCommand.commandName);
       } catch (error) {
         err = error;
       }
 
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand
+        newCommand.commandName
       );
       expect(err.message).to.be.equal('Context not found');
     });
@@ -204,7 +216,7 @@ describe('CommandBus', () => {
           return 'bar';
         },
       };
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
       sinon.spy(context as any, 'getCommand');
       sinon.spy(
         (context as any).context.get(command.commandName).listners,
@@ -221,13 +233,15 @@ describe('CommandBus', () => {
           return;
         },
       };
-      context.subscribeCommand(command, subscriber);
+      context.subscribeCommand(command.commandName, subscriber);
       expect(
         (context as any).context
           .get(command.commandName)
           .listners.subscribers.has(subscriber)
       ).to.be.true;
-      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        command.commandName
+      );
       expect(
         (context as any).context.get(command.commandName).listners.subscribe
       ).to.have.been.calledOnceWith(subscriber);
@@ -247,13 +261,13 @@ describe('CommandBus', () => {
           return 'bar';
         },
       };
-      context.registerCommand(command, handle);
+      context.registerCommand(command.commandName, handle);
       subscriber = {
         update: (res: any) => {
           return;
         },
       };
-      context.subscribeCommand(command, subscriber);
+      context.subscribeCommand(command.commandName, subscriber);
       sinon.spy(context as any, 'unsubscribeCommand');
       sinon.spy(context as any, 'getCommand');
       sinon.spy(
@@ -265,13 +279,15 @@ describe('CommandBus', () => {
       sinon.restore();
     });
     it('Should unsubscribe a command successfully', () => {
-      context.unsubscribeCommand(command, subscriber);
+      context.unsubscribeCommand(command.commandName, subscriber);
       expect(
         (context as any).context
           .get(command.commandName)
           .listners.subscribers.has(subscriber)
       ).to.be.false;
-      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        command.commandName
+      );
       expect(
         (context as any).context.get(command.commandName).listners.unsubscribe
       ).to.have.been.calledOnceWith(subscriber);
@@ -282,12 +298,12 @@ describe('CommandBus', () => {
       };
       let err;
       try {
-        context.unsubscribeCommand(newCommand, subscriber);
+        context.unsubscribeCommand(newCommand.commandName, subscriber);
       } catch (error) {
         err = error;
       }
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand
+        newCommand.commandName
       );
       expect(err.message).to.be.equal('Context not found');
     });
@@ -316,9 +332,9 @@ describe('CommandBus', () => {
         },
       };
       context
-        .registerCommand(command, handle)
-        .use(middleware, command)
-        .subscribeCommand(command, subscriber);
+        .registerCommand(command.commandName, handle)
+        .use(middleware, command.commandName)
+        .subscribeCommand(command.commandName, subscriber);
       sinon.spy(handle, 'execute');
       sinon.spy(subscriber, 'update');
       sinon.spy(context, 'registerCommand');
@@ -332,13 +348,17 @@ describe('CommandBus', () => {
       sinon.restore();
     });
     it('Should execute a command successfully', async () => {
-      const result = await context.execute(command);
+      let req: any = command;
+      req.x = 'a';
+      const result = await context.execute(req);
       expect(result).to.be.equal('bar');
-      expect((context as any).getCommand).to.have.been.calledOnceWith(command);
+      expect((context as any).getCommand).to.have.been.calledOnceWith(
+        command.commandName
+      );
       expect(middleware).to.have.been.calledOnce;
-      expect(handle.execute).to.have.been.calledOnceWith(command);
+      expect(handle.execute).to.have.been.calledOnceWith(req);
       expect(subscriber.update).to.have.been.calledOnceWith({
-        req: command,
+        req,
         res: 'bar',
         error: undefined,
       });
@@ -354,7 +374,7 @@ describe('CommandBus', () => {
         err = error;
       }
       expect((context as any).getCommand).to.have.been.calledOnceWith(
-        newCommand
+        newCommand.commandName
       );
       expect(err.message).to.be.equal('Context not found');
     });
@@ -368,9 +388,9 @@ describe('CommandBus', () => {
       };
 
       context
-        .registerCommand(newCommand, newHandle)
-        .subscribeCommand(newCommand, subscriber)
-        .use(middleware, newCommand);
+        .registerCommand(newCommand.commandName, newHandle)
+        .subscribeCommand(newCommand.commandName, subscriber)
+        .use(middleware, newCommand.commandName);
 
       let err;
       try {
@@ -381,8 +401,10 @@ describe('CommandBus', () => {
       expect((context as any).getCommand).to.have.been.callCount(3);
       expect(middleware).to.have.been.calledOnce;
       expect(newHandle.execute).to.have.been.calledOnceWith(newCommand);
-      expect(subscriber.update).to.have.been.calledOnceWith({
-        req: newCommand,
+      expect(subscriber.update).to.have.been.calledWithExactly({
+        req: {
+          commandName: newCommand.commandName,
+        },
         res: undefined,
         error: err,
       });
@@ -395,7 +417,7 @@ describe('CommandBus', () => {
       };
       const originalCommand = Object.assign({}, command);
 
-      context.use(newMiddleware, command);
+      context.use(newMiddleware, command.commandName);
       const result = await context.execute(command);
       expect(result).to.be.equal('bar');
       expect(middleware).to.have.been.calledOnce;
@@ -416,7 +438,7 @@ describe('CommandBus', () => {
       const newMiddleware = (self: any, next: Next) => {
         throw new Error('Some Error');
       };
-      context.use(newMiddleware, command);
+      context.use(newMiddleware, command.commandName);
 
       let result;
       let err;
@@ -442,7 +464,7 @@ describe('CommandBus', () => {
 
       let result;
       let err;
-      context.subscribeCommand(command, errorSubscriber);
+      context.subscribeCommand(command.commandName, errorSubscriber);
       try {
         result = await context.execute(command);
       } catch (error) {
@@ -450,7 +472,7 @@ describe('CommandBus', () => {
       }
       expect(result).to.be.equal('bar');
       expect((context as any).getCommand).to.have.been.calledWithExactly(
-        command
+        command.commandName
       );
       expect(middleware).to.have.been.calledOnce;
       expect(handle.execute).to.have.been.calledOnceWith(command);

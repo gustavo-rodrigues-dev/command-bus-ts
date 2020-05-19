@@ -10,8 +10,9 @@ import { Publisher } from '../../publisher';
  * @interface Context
  */
 export interface Context {
-  command: Command;
+  commandName: string | Symbol;
   handle: Handle;
+  command?: Command;
   middlewares: Middleware<any>[];
   listners: Publisher;
 }
