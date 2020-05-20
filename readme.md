@@ -5,7 +5,7 @@
 
 # Command-Buss
 
-This project provide a simple and decoupled solution from a command handle structure with suport of publish subscribe.
+This project provide a simple and decoupled solution from a command handle structure with supports of publish subscribe.
 
 ![class](public/images/interfaces.png)
 
