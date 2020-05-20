@@ -1,7 +1,7 @@
 {
   "name": "command-bus-ts",
-  "version": "1.0.17",
-  "description": "This project provide a simple and decoupled solution from a command handle structure with suport of publish subscribe.",
+  "version": "1.0.18",
+  "description": "This project provide a simple and decoupled solution from a command handle structure with supports of publish subscribe.",
   "repository": "https://github.com/gustavobeavis/command-bus-ts",
   "keywords": [
     "typescript",
@@ -55,8 +55,8 @@
     "@types/chai": "4.2.11",
     "@types/chai-as-promised": "7.1.2",
     "@types/mocha": "7.0.2",
-    "@types/node": "13.13.8",
-    "@types/sinon": "9.0.3",
+    "@types/node": "13.13.2",
+    "@types/sinon": "9.0.0",
     "@types/sinon-chai": "3.2.4",
     "@typescript-eslint/parser": "2.34.0",
     "chai": "4.2.0",
@@ -73,7 +73,7 @@
     "tslint": "6.1.1",
     "tslint-config-airbnb-base": "0.3.0",
     "typedoc": "0.17.4",
-    "typescript": "3.9.3"
+    "typescript": "3.8.3"
   },
   "dependencies": {
     "@types/verror": "1.10.3",
