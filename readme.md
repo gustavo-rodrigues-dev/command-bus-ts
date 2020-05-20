@@ -1,10 +1,18 @@
+# Command-bus-ts
+![npm type definitions](https://img.shields.io/npm/types/command-bus-ts)
 [![npm](https://img.shields.io/npm/v/command-bus-ts.svg)](https://www.npmjs.com/package/command-bus-ts)
+![npm](https://img.shields.io/npm/dt/command-bus-ts)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/command-bus-ts)
+![node-current (tag)](https://img.shields.io/node/v/command-bus-ts/latest)
+![David](https://img.shields.io/david/gustavobeavis/command-bus-ts)
+![David](https://img.shields.io/david/dev/gustavobeavis/command-bus-ts)
+
 [![Build Status](https://travis-ci.org/gustavobeavis/command-bus-ts.svg?branch=master)](https://travis-ci.org/gustavobeavis/command-bus-ts)
 [![Known Vulnerabilities](https://snyk.io/test/github/gustavobeavis/command-bus-ts/badge.svg?targetFile=package.json)](https://snyk.io/test/github/gustavobeavis/command-bus-ts?targetFile=package.json)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2fc792e1aae6bb747f94/maintainability)](https://codeclimate.com/github/gustavobeavis/command-bus-ts/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2fc792e1aae6bb747f94/test_coverage)](https://codeclimate.com/github/gustavobeavis/command-bus-ts/test_coverage)
-
-# Command-Buss
+![GitHub issues](https://img.shields.io/github/issues/gustavobeavis/command-bus-ts)
+![GitHub](https://img.shields.io/github/license/gustavobeavis/command-bus-ts)
 
 This project provide a simple and decoupled solution from a command handle structure with supports of publish subscribe.
 
