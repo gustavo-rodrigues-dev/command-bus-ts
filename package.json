@@ -76,7 +76,7 @@
     "typescript": "3.9.10"
   },
   "dependencies": {
-    "@types/verror": "1.10.3",
-    "verror": "1.10.0"
+    "@types/verror": "1.10.10",
+    "verror": "1.10.1"
   }
 }
